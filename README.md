@@ -35,9 +35,50 @@ This project implements a role-based system where users and admins can manage av
 
 ---
 
-## Installation  
+## 🚀 Getting Started
 
-1. Clone the repository:  
-   ```bash
-   git clone https://github.com/username/repo.git
-   cd repo
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/krishnaa-1/Devstree-Task.git
+cd Devstree-Task
+
+
+2. Install Dependencies
+
+# Install server dependencies
+cd backend
+npm install
+
+# Install client dependencies
+cd frontend
+npm install
+
+3. Environment Variables
+
+Create a .env file in the backend folder with the following contents:
+
+MONGO_URI=your-mongodb-connection-string
+JWT_SECRET=your-jwt-secret-key
+PORT=5000
+TOKEN_EXPIRY=1h
+
+Create a .env file in the frontend folder with the following contents:
+
+VITE_API_URL=http://localhost:5000
+
+4. Run the Application
+
+# Run server
+cd backend
+npm start
+
+# Run client
+cd frontend
+npm run dev
+
+5. Access the Application
+
+Frontend: http://localhost:5173
+
+
