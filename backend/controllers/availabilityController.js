@@ -23,9 +23,22 @@ const addAvailability = async (req, res) => {
         const { date, startTime, endTime } = req.body;
         const userId = req.user.id;
 
-        // Validate date is not in past
-        if (new Date(date).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0)) {
+        const today = new Date();
+        const maxDate = new Date();
+        maxDate.setDate(today.getDate() + 7);
+        
+        // Remove the time component for accurate date comparison
+        const selectedDate = new Date(date).setHours(0, 0, 0, 0);
+        const currentDate = today.setHours(0, 0, 0, 0);
+        const maxAllowedDate = maxDate.setHours(0, 0, 0, 0);
+
+        // Validate date is not in the past and within the next 7 days
+        if (selectedDate < currentDate) {
             return res.status(400).json({ error: 'Date cannot be in the past.' });
+        }
+        
+        if (selectedDate > maxAllowedDate) {
+            return res.status(400).json({ error: 'Date cannot be more than 7 days ahead.' });
         }
 
         // Validate startTime < endTime
@@ -52,7 +65,7 @@ const addAvailability = async (req, res) => {
                 startTime: slotStart,
                 endTime: slotEnd,
                 status: 'Available',
-                userId : userId
+                userId: userId
             });
             current += 30;
         }
@@ -69,6 +82,7 @@ const addAvailability = async (req, res) => {
         return res.status(500).json({ error: 'Internal server error' });
     }
 };
+
 const getAvailability = async (req, res) => {
   try {
     const { date } = req.params;

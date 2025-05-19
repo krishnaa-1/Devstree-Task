@@ -14,6 +14,7 @@ function LoginForm() {
     try {
       const response = await api.post('/api/auth/login', { username, password });
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('role', response.data.role);
       const userRole = JSON.parse(atob(response.data.token.split('.')[1])).role;
       console.log(userRole);
       if (userRole === 'Admin') {
