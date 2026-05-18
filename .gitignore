@@ -1,2 +1,6 @@
 .vercel
-.env*.local
+
+# Local secrets and deployment environment files
+.env
+.env.*
+!.env.example
