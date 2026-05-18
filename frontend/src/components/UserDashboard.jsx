@@ -71,49 +71,79 @@ function UserDashboard() {
   };
 
   return (
-    <div className="dashboard-container">
-      <h2>User Dashboard</h2>
-      <p>Welcome, User!</p>
+    <div className="user-dashboard">
+      <header className="user-topbar">
+        <div>
+          <span className="user-kicker">Provider portal</span>
+          <h2>User Dashboard</h2>
+          <p>Welcome, User. Share your care availability for upcoming bookings.</p>
+        </div>
+        <button className="logout-button" onClick={handleLogout}>Logout</button>
+      </header>
 
-      <button className="logout-button" onClick={handleLogout}>Logout</button>
+      <main className="user-content">
+        <section className="user-summary" aria-label="Availability summary">
+          <div className="summary-item">
+            <span className="summary-label">Today</span>
+            <strong>Ready</strong>
+            <p>Publish accurate appointment windows for care coordinators.</p>
+          </div>
+          <div className="summary-item">
+            <span className="summary-label">Workflow</span>
+            <strong>Availability</strong>
+            <p>Choose a date and time range to make booking easier.</p>
+          </div>
+        </section>
 
-      <h3>Add Availability</h3>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Date:
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-          />
-        </label>
+        <section className="availability-panel">
+          <div className="panel-heading">
+            <span className="panel-icon">+</span>
+            <div>
+              <h3>Add Availability</h3>
+              <p>Set the appointment window you want to offer.</p>
+            </div>
+          </div>
 
-        <label>
-          Start Time:
-          <input
-            type="time"
-            value={startTime}
-            onChange={(e) => setStartTime(e.target.value)}
-            required
-          />
-        </label>
+          <form className="availability-form" onSubmit={handleSubmit}>
+            <label>
+              <span>Date</span>
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+              />
+            </label>
 
-        <label>
-          End Time:
-          <input
-            type="time"
-            value={endTime}
-            onChange={(e) => setEndTime(e.target.value)}
-            required
-          />
-        </label>
+            <div className="time-grid">
+              <label>
+                <span>Start Time</span>
+                <input
+                  type="time"
+                  value={startTime}
+                  onChange={(e) => setStartTime(e.target.value)}
+                  required
+                />
+              </label>
 
-        <button type="submit">Add Availability</button>
-      </form>
+              <label>
+                <span>End Time</span>
+                <input
+                  type="time"
+                  value={endTime}
+                  onChange={(e) => setEndTime(e.target.value)}
+                  required
+                />
+              </label>
+            </div>
 
-      {error && <p className="message error">{error}</p>}
-      {success && <p className="message success">{success}</p>}
+            <button type="submit">Add Availability</button>
+          </form>
+
+          {error && <p className="message error">{error}</p>}
+          {success && <p className="message success">{success}</p>}
+        </section>
+      </main>
     </div>
   );
 }

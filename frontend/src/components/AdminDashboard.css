@@ -1,179 +1,322 @@
-/* AdminDashboard.css */
-.dashboard-container {
-  padding: 30px;
-  max-width: 600px;
-  margin: auto;
-  background-color: #f9f9f9;
-  border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+.admin-dashboard {
+  min-height: 100vh;
+  padding: clamp(20px, 4vw, 48px);
+  color: #16303f;
 }
 
-.dashboard-container h2 {
-  color: #444;
-  text-align: center;
-  margin-bottom: 20px;
+.admin-topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1180px;
+  margin: 0 auto 24px;
+  padding: clamp(24px, 4vw, 40px);
+  border: 1px solid rgba(22, 163, 148, 0.14);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(240, 250, 249, 0.92)),
+    radial-gradient(circle at 92% 18%, rgba(22, 163, 148, 0.16), transparent 18rem);
+  box-shadow: 0 20px 60px rgba(36, 79, 89, 0.12);
+}
+
+.admin-kicker {
+  display: inline-flex;
+  margin-bottom: 10px;
+  color: #0f7d75;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.admin-topbar h2 {
+  margin: 0;
+  color: #16303f;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.admin-topbar p {
+  max-width: 680px;
+  margin: 14px 0 0;
+  color: #607984;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.admin-content {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+  gap: 22px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.admin-control-panel,
+.admin-results {
+  border: 1px solid rgba(22, 163, 148, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 46px rgba(36, 79, 89, 0.1);
+}
+
+.admin-control-panel {
+  align-self: start;
+  padding: 24px;
+}
+
+.admin-results {
+  min-height: 310px;
+  padding: clamp(18px, 3vw, 28px);
+}
+
+.admin-control-panel .panel-heading,
+.slots-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.admin-control-panel .panel-heading {
+  justify-content: flex-start;
+  margin-bottom: 24px;
+}
+
+.admin-control-panel h3,
+.slots-heading h3 {
+  margin: 0;
+  color: #16303f;
+  letter-spacing: 0;
+}
+
+.admin-control-panel h3 {
+  font-size: 24px;
+  line-height: 1.12;
+}
+
+.admin-control-panel p {
+  margin: 8px 0 0;
+  color: #607984;
+  line-height: 1.5;
 }
 
 .date-picker {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
+  display: grid;
+  gap: 16px;
 }
 
 .date-picker label {
-  margin-bottom: 10px;
-  font-weight: bold;
+  display: grid;
+  gap: 8px;
+  color: #38525d;
+  font-size: 14px;
+  font-weight: 800;
 }
 
 .date-picker input[type="date"] {
-  padding: 8px;
+  width: 100%;
+  min-height: 50px;
+  padding: 0 14px;
+  border: 1px solid #c9dcdd;
   border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
+  background: #f8fcfc;
+  color: #173340;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.date-picker input[type="date"]:focus {
+  border-color: #16a394;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(22, 163, 148, 0.13);
+}
+
+.date-picker button,
+.book-button {
+  border: 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #0f7d75, #19a890);
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 800;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .date-picker button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  min-height: 52px;
+  padding: 0 18px;
+  box-shadow: 0 16px 30px rgba(15, 125, 117, 0.22);
 }
 
-.date-picker button:hover {
-  background-color: #0056b3;
+.book-button {
+  min-height: 38px;
+  padding: 0 14px;
+  white-space: nowrap;
+  box-shadow: 0 10px 22px rgba(15, 125, 117, 0.18);
 }
 
-.slots-container {
-  margin-bottom: 20px;
+.date-picker button:hover:not(:disabled),
+.book-button:hover:not(:disabled) {
+  box-shadow: 0 20px 38px rgba(15, 125, 117, 0.28);
+  filter: saturate(1.08);
+  transform: translateY(-1px);
 }
 
-.slots-container ul {
-  padding-left: 20px;
-  list-style-type: circle;
+.date-picker button:disabled,
+.book-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+  transform: none;
 }
-
-.no-slots {
-  color: #999;
-  font-style: italic;
-}
-
-.booking-form {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.booking-form label {
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.booking-form input,
-.booking-form select {
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-bottom: 15px;
-}
-
-.booking-form button {
-  padding: 10px 20px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.booking-form button:hover {
-  background-color: #218838;
-}
-
-.message {
-  color: #28a745;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 15px;
-}
-/* Add these styles to AdminDashboard.css */
 
 .slots-table-container {
-  margin-top: 20px;
-  overflow-x: auto; /* responsive horizontal scroll if table is wide */
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-  background-color: #fff;
-  padding: 15px;
+  overflow-x: auto;
 }
 
-table {
+.slots-heading {
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.slots-heading h3 {
+  font-size: clamp(22px, 3vw, 30px);
+}
+
+.slot-count {
+  flex: 0 0 auto;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #e6f7f4;
+  color: #0f7d75;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.slots-table-container table {
   width: 100%;
-  border-collapse: collapse;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-width: 720px;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid #dceaea;
+  border-radius: 8px;
+  background: #ffffff;
 }
 
-thead {
-  background-color: #007bff;
-  color: white;
-  border-radius: 12px 12px 0 0;
+.slots-table-container thead {
+  background: #f1faf8;
 }
 
-thead th {
-  padding: 12px 15px;
+.slots-table-container th,
+.slots-table-container td {
+  padding: 15px 16px;
   text-align: left;
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  vertical-align: middle;
 }
 
-tbody tr {
-  border-bottom: 1px solid #ddd;
+.slots-table-container th {
+  color: #38525d;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.slots-table-container td {
+  border-top: 1px solid #edf4f4;
+  color: #243f49;
+  font-size: 14px;
+}
+
+.slots-table-container tbody tr {
   transition: background-color 0.2s ease;
 }
 
-tbody tr:hover {
-  background-color: #f1f7ff;
+.slots-table-container tbody tr:hover {
+  background: #f8fcfc;
 }
 
-tbody td {
-  padding: 12px 15px;
-  vertical-align: middle;
-  color: #333;
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
 }
 
-button {
-  padding: 8px 16px;
-  background-color: #28a745;
-  color: white;
-  border: none;
+.status-available {
+  background: #e6f7f4;
+  color: #0f7d75;
+}
+
+.status-booked {
+  background: #fff7ed;
+  color: #b45309;
+}
+
+.empty-action {
+  color: #8aa0a7;
+  font-weight: 800;
+}
+
+.loading,
+.error-message,
+.no-slots {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  margin: 0;
+  border: 1px dashed #c9dcdd;
   border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-}
-
-button:hover:not(:disabled) {
-  background-color: #218838;
-}
-
-button:disabled {
-  background-color: #94d3a2;
-  cursor: not-allowed;
-}
-
-.error-message {
-  color: #d9534f;
-  font-weight: bold;
+  background: #f8fcfc;
   text-align: center;
-  margin-top: 15px;
+  font-weight: 800;
 }
 
 .loading {
-  color: #007bff;
-  font-weight: 600;
-  text-align: center;
-  margin: 15px 0;
+  color: #0f7d75;
+}
+
+.error-message {
+  border-color: #fecaca;
+  background: #fff5f5;
+  color: #b42318;
+}
+
+.no-slots {
+  color: #607984;
+}
+
+@media (max-width: 960px) {
+  .admin-topbar,
+  .admin-content {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-topbar {
+    display: grid;
+  }
+}
+
+@media (max-width: 560px) {
+  .admin-dashboard {
+    padding: 16px;
+  }
+
+  .slots-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }

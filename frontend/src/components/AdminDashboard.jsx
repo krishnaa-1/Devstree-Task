@@ -83,71 +83,99 @@ function AdminDashboard() {
     }
 
     return (
-        <div className="dashboard-container">
-            <h2>Admin Dashboard</h2>
-            <p>Welcome, Admin!</p>
-
-            
-      <button className="logout-button" onClick={handleLogout}>Logout</button>
-
-            <div className="date-picker">
-                <label>
-                    Select Date:
-                    <input
-                        type="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                    />
-                </label>
-                <button onClick={fetchAvailability} disabled={loading || bookingLoading}>
-                    View Available Slots
-                </button>
-            </div>
-
-            {loading ? (
-                <p className="loading">Loading slots...</p>
-            ) : errorMessage ? (
-                <p className="error-message">{errorMessage}</p>
-            ) : slots.length > 0 ? (
-                <div className="slots-table-container">
-                    <h3>Available Slots for {date}</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th>Status</th>
-                                <th>User Name</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {slots.map((slot) => (
-                                <tr key={slot._id}>
-                                    <td>{slot.startTime}</td>
-                                    <td>{slot.endTime}</td>
-                                    <td>{slot.status}</td>
-                                    <td>{slot.availabilityId?.userId?.username || "N/A"}</td>
-                                    <td>
-                                        {slot.status === "Available" ? (
-                                            <button
-                                                onClick={() => handleBookSlot(slot)}
-                                                disabled={bookingLoading}
-                                            >
-                                                Book Slot
-                                            </button>
-                                        ) : (
-                                            <span>--</span>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+        <div className="admin-dashboard">
+            <header className="admin-topbar">
+                <div>
+                    <span className="admin-kicker">Care operations</span>
+                    <h2>Admin Dashboard</h2>
+                    <p>Welcome, Admin. Review provider availability and book patient slots.</p>
                 </div>
-            ) : (
-                <p className="no-slots">No available slots found for this date.</p>
-            )}
+                <button className="logout-button" onClick={handleLogout}>Logout</button>
+            </header>
+
+            <main className="admin-content">
+                <section className="admin-control-panel">
+                    <div className="panel-heading">
+                        <span className="panel-icon">+</span>
+                        <div>
+                            <h3>Find Available Care Slots</h3>
+                            <p>Select a date to view appointment windows.</p>
+                        </div>
+                    </div>
+
+                    <div className="date-picker">
+                        <label>
+                            <span>Select Date</span>
+                            <input
+                                type="date"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                            />
+                        </label>
+                        <button onClick={fetchAvailability} disabled={loading || bookingLoading}>
+                            View Available Slots
+                        </button>
+                    </div>
+                </section>
+
+                <section className="admin-results">
+                    {loading ? (
+                        <p className="loading">Loading slots...</p>
+                    ) : errorMessage ? (
+                        <p className="error-message">{errorMessage}</p>
+                    ) : slots.length > 0 ? (
+                        <div className="slots-table-container">
+                            <div className="slots-heading">
+                                <div>
+                                    <span className="admin-kicker">Appointment list</span>
+                                    <h3>Available Slots for {date}</h3>
+                                </div>
+                                <span className="slot-count">{slots.length} slots</span>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                        <th>Status</th>
+                                        <th>User Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {slots.map((slot) => (
+                                        <tr key={slot._id}>
+                                            <td>{slot.startTime}</td>
+                                            <td>{slot.endTime}</td>
+                                            <td>
+                                                <span className={`status-pill status-${slot.status.toLowerCase()}`}>
+                                                    {slot.status}
+                                                </span>
+                                            </td>
+                                            <td>{slot.availabilityId?.userId?.username || "N/A"}</td>
+                                            <td>
+                                                {slot.status === "Available" ? (
+                                                    <button
+                                                        className="book-button"
+                                                        onClick={() => handleBookSlot(slot)}
+                                                        disabled={bookingLoading}
+                                                    >
+                                                        Book Slot
+                                                    </button>
+                                                ) : (
+                                                    <span className="empty-action">--</span>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <p className="no-slots">No available slots found for this date.</p>
+                    )}
+                </section>
+            </main>
         </div>
     );
 }

@@ -1,11 +1,29 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const User = require('../models/userModel');
-require('dotenv').config();
+const envFile = process.env.ENV_FILE || '.env';
+require('dotenv').config({ path: envFile });
 const connectDB = require('../config/db');
+
+const getMongoTarget = (mongoUri) => {
+  try {
+    const parsedUri = new URL(mongoUri);
+    const database = parsedUri.pathname && parsedUri.pathname !== '/' ? parsedUri.pathname.slice(1) : 'test';
+    return `${parsedUri.hostname}/${database}`;
+  } catch (error) {
+    return 'Unable to parse MONGO_URI target';
+  }
+};
 
 async function Populate() {
   try {
+    if (!process.env.MONGO_URI) {
+      throw new Error(`MONGO_URI is not defined. Checked ${envFile}.`);
+    }
+
+    console.log(`Using env file: ${envFile}`);
+    console.log(`Mongo target: ${getMongoTarget(process.env.MONGO_URI)}`);
+
     await connectDB();
     console.log('Database connected successfully.');
 

@@ -22,32 +22,66 @@ function LoginForm() {
       } else {
         navigate('/user');
       }
-    } catch (error) {
+    } catch {
       setMessage('Invalid credentials');
     }
   };
 
   return (
-    <div className="login-container">
-      <h2 className="login-title">Login</h2>
-      <form className="login-form" onSubmit={handleLogin}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="login-input"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="login-input"
-        />
-        <button type="submit" className="login-button">Login</button>
-      </form>
-      {message && <p className="login-message">{message}</p>}
+    <div className="login-page">
+      <section className="login-hero" aria-label="Healthcare access portal">
+        <div className="login-brand">
+          <span className="login-brand-mark">HC</span>
+          <span>CareSlot Health</span>
+        </div>
+        <div className="login-hero-copy">
+          <p className="login-kicker">Secure clinical scheduling</p>
+          <h1>Coordinate care with a calmer, clearer dashboard.</h1>
+          <p>
+            Manage availability and bookings through a focused healthcare portal
+            designed for fast daily work.
+          </p>
+        </div>
+        <div className="login-metrics" aria-hidden="true">
+          <div>
+            <strong>24/7</strong>
+            <span>Care access</span>
+          </div>
+          <div>
+            <strong>HIPAA</strong>
+            <span>Ready workflow</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="login-panel" aria-label="Login form">
+        <p className="login-eyebrow">Welcome back</p>
+        <h2 className="login-title">Login to your account</h2>
+        <form className="login-form" onSubmit={handleLogin}>
+          <label className="login-field">
+            <span>Username</span>
+            <input
+              type="text"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="login-input"
+            />
+          </label>
+          <label className="login-field">
+            <span>Password</span>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="login-input"
+            />
+          </label>
+          <button type="submit" className="login-button">Login</button>
+        </form>
+        {message && <p className="login-message">{message}</p>}
+      </section>
     </div>
   );
 }
