@@ -102,6 +102,7 @@ MONGO_URI=your-mongodb-connection-string
 JWT_SECRET=your-jwt-secret-key
 TOKEN_EXPIRY=1h
 FRONTEND_URL=https://your-frontend-project.vercel.app
+CORS_ORIGINS=https://your-frontend-project.vercel.app
 ```
 
 ### Frontend Project
@@ -115,4 +116,30 @@ VITE_API_URL=https://your-backend-project.vercel.app
 ```
 
 For local development, keep `frontend/.env` as shown above.
+
+If your frontend has multiple Vercel URLs, add them as comma-separated values in the backend project:
+
+```env
+CORS_ORIGINS=https://your-frontend.vercel.app,https://your-preview.vercel.app
+```
+
+MongoDB Atlas must also allow connections from Vercel. For simple Vercel deployments, add `0.0.0.0/0` in Atlas Network Access, or use a stricter dedicated networking setup if your account/project supports it.
+
+### Seed Production Data
+
+Vercel does not provide a server terminal for running seed scripts after deploy. Run the seed script locally against the same MongoDB database used by your Vercel backend.
+
+From the `backend` folder, pull the backend project's production env vars:
+
+```bash
+vercel env pull .env.vercel
+```
+
+Then run:
+
+```bash
+npm run seed:vercel
+```
+
+This clears existing users and inserts the default admin/users from `seed/seedData.js`.
 

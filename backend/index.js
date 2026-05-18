@@ -14,10 +14,19 @@ connectDB().catch(() => {
 const app = express();
 app.use(express.json());
 
+const envOrigins = [
+    process.env.FRONTEND_URL,
+    process.env.CORS_ORIGINS,
+]
+    .filter(Boolean)
+    .flatMap((origin) => origin.split(','))
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
 const allowedOrigins = [
     'http://localhost:5173',
-    process.env.FRONTEND_URL,
     process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
+    ...envOrigins,
 ].filter(Boolean);
 
 const corsOptions = {

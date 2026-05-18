@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index",
+    "seed": "node seed/seedData.js",
+    "seed:vercel": "node -r dotenv/config seed/seedData.js dotenv_config_path=.env.vercel",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
