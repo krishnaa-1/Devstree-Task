@@ -35,50 +35,71 @@ This project implements a role-based system where users and admins can manage av
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/krishnaa-1/Devstree-Task.git
 cd Devstree-Task
+```
 
+### 2. Install Dependencies
 
-2. Install Dependencies
-
-# Install server dependencies
+```bash
 cd backend
 npm install
 
-# Install client dependencies
-cd frontend
+cd ../frontend
 npm install
+```
 
-3. Environment Variables
+### 3. Environment Variables
 
-Create a .env file in the backend folder with the following contents:
+Create `backend/.env`:
 
+```env
 MONGO_URI=your-mongodb-connection-string
 JWT_SECRET=your-jwt-secret-key
 PORT=5000
 TOKEN_EXPIRY=1h
+```
 
-Create a .env file in the frontend folder with the following contents:
+Create `frontend/.env`:
 
+```env
 VITE_API_URL=http://localhost:5000
+```
 
-4. Run the Application
+### 4. Run the Application
 
-# Run server
+```bash
 cd backend
 npm start
+```
 
-# Run client
+In another terminal:
+
+```bash
 cd frontend
 npm run dev
-
-5. Access the Application
+```
 
 Frontend: http://localhost:5173
 
+## Deploy on Vercel
+
+The repository includes `vercel.json` for deploying the Vite frontend and Express API together from the repo root.
+
+Set these environment variables in Vercel:
+
+```env
+MONGO_URI=your-mongodb-connection-string
+JWT_SECRET=your-jwt-secret-key
+TOKEN_EXPIRY=1h
+```
+
+`VITE_API_URL` is not required on Vercel when frontend and backend are deployed together, because the frontend calls the same domain with `/api/...` routes. For local development, keep `frontend/.env` as shown above.
+
+If you deploy the frontend and backend as separate Vercel projects, set `FRONTEND_URL` in the backend project to the deployed frontend URL and set `VITE_API_URL` in the frontend project to the deployed backend URL.
 
