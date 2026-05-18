@@ -89,17 +89,30 @@ Frontend: http://localhost:5173
 
 ## Deploy on Vercel
 
-The repository includes `vercel.json` for deploying the Vite frontend and Express API together from the repo root.
+Deploy the app as two Vercel projects.
 
-Set these environment variables in Vercel:
+### Backend Project
+
+Set the Vercel root directory to `backend`.
+
+Set these environment variables:
 
 ```env
 MONGO_URI=your-mongodb-connection-string
 JWT_SECRET=your-jwt-secret-key
 TOKEN_EXPIRY=1h
+FRONTEND_URL=https://your-frontend-project.vercel.app
 ```
 
-`VITE_API_URL` is not required on Vercel when frontend and backend are deployed together, because the frontend calls the same domain with `/api/...` routes. For local development, keep `frontend/.env` as shown above.
+### Frontend Project
 
-If you deploy the frontend and backend as separate Vercel projects, set `FRONTEND_URL` in the backend project to the deployed frontend URL and set `VITE_API_URL` in the frontend project to the deployed backend URL.
+Set the Vercel root directory to `frontend`.
+
+Set this environment variable:
+
+```env
+VITE_API_URL=https://your-backend-project.vercel.app
+```
+
+For local development, keep `frontend/.env` as shown above.
 
