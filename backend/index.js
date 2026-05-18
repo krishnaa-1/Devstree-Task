@@ -14,34 +14,16 @@ connectDB().catch(() => {
 const app = express();
 app.use(express.json());
 
-const envOrigins = [
-    process.env.FRONTEND_URL,
-    process.env.CORS_ORIGINS,
-]
-    .filter(Boolean)
-    .flatMap((origin) => origin.split(','))
-    .map((origin) => origin.trim())
-    .filter(Boolean);
-
-const allowedOrigins = [
-    'http://localhost:5173',
-    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
-    ...envOrigins,
-].filter(Boolean);
-
 const corsOptions = {
     origin(origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            return callback(null, true);
-        }
-
-        return callback(new Error('Not allowed by CORS'));
+        return callback(null, true);
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 };
 app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
 
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok' });
